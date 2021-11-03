@@ -57,7 +57,8 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
-      thisProduct.initAccordion();
+      thisProduct.getElements();
+      thisProduct.initAccordin();
 
       console.log('new Product' , thisProduct);
     }
@@ -73,28 +74,36 @@
       //add element to menu
       menuContainer.appendChild(thisProduct.element);
     }
-    initAccorin(){
+    
+    getElements(){
+      const thisProduct = this;
+    
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    }
+    
+    initAccordin(){
       const thisProduct = this;
 
       /* find the clickable trigger (the element that should react to clicking) */
-      const clickableTrigger = select.menuProduct.clickable;
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
   
       /* START: add event listener to clickable trigger on event click */
       clickableTrigger.addEventListener('click', function(event) {
         /* prevent default action for event */
         event.preventDefault();
         /* find active product (product that has active class) */
-        const activeProduct = classNames.menuProduct.wrapperActive.querySelector('.active');
+        const activeProduct = document.querySelector(classNames.menuProduct.wrapperActive);
         /* if there is active product and it's not thisProduct.element, remove class active from it */
-        if (!activeProduct == thisProduct.element){
-          activeProduct.classList.remove('active');
+        if (activeProduct != null && thisProduct != thisProduct.element){
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
         }
         /* toggle active class on thisProduct.element */
-        else {
-          thisProduct.product.classList.toggle('active');
-        }
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
-  
     }
   }
   
