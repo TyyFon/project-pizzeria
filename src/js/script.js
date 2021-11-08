@@ -132,7 +132,7 @@
     }
     initAmount(){
       const thisProduct = this;
-
+      thisProduct.amountWidgetElem.addEventListener('updated' , thisProduct.processOrder());
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
     }
     processOrder(){
@@ -157,7 +157,7 @@
         
             
           const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          console.log(optionImage);
+          //console.log(optionImage);
           if(optionImage !== null) {
             if (optionSelected) {
               optionImage.classList.add(classNames.menuProduct.imageVisible);
@@ -173,6 +173,7 @@
             price -= option.price;
           }
         }
+        price *= thisProduct.amountWidget.value;
         thisProduct.priceElem.innerHTML = price;
       }
     }
@@ -185,8 +186,8 @@
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initAction();
       
-      console.log('AmountWidget' , thisWidget);
-      console.log('constructor arguments' , element);
+    // console.log('AmountWidget' , thisWidget);
+      //console.log('constructor arguments' , element);
     }
 
     getElements(element){
@@ -205,15 +206,22 @@
       //Add validation//
       if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
-  /*    } else if (newValue < settings.amountWidget.defaultMin) {
+      } 
+      /*else if (newValue < settings.amountWidget.defaultMin) {
         thisWidget.value = settings.amountWidget.defaultMin;
       } else if (newValue > settings.amountWidget.defaultMax) {
         thisWidget.value = settings.amountWidget.defaultMax;
       } else {
-        thisWidget.value = newValue;*/
-      }
+        thisWidget.value = newValue;
+      }*/
       
       thisWidget.input.value = thisWidget.value;
+      
+      thisWidget.announce(thisWidget.value);
+      
+      thisWidget.input.addEventListener('change', function(){
+        thisWidget.setValue(thisWidget.input.value);
+      });
       console.log('thisWidget.value:' , thisWidget.value);
       
     }
@@ -233,7 +241,16 @@
         thisWidget.setValue(thisWidget.value + 1);
       });
     }
+    announce(){
+      const thisWidget = this;
+  
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
+    
   }
+  
+  
 
   const app = {
     initMenu: function (){
