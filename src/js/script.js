@@ -167,7 +167,9 @@
     initAmount(){
       const thisProduct = this;
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      thisProduct.amountWidgetElem.addEventListener('updated' , thisProduct.processOrder());
+      thisProduct.amountWidgetElem.addEventListener('updated' , function(){
+        thisProduct.processOrder();
+      });
     }
     processOrder(){
       const thisProduct = this;
@@ -207,11 +209,13 @@
             price -= option.price;
           }
         }
-        console.log('this.amountWidget.value:' , thisProduct.amountWidget.value),
+        // console.log('this.amountWidget.value:' , thisProduct.amountWidget.value),
         price *= thisProduct.amountWidget.value;
         thisProduct.priceElem.innerHTML = price;
       }
     }
+       // price *= thisProduct.amountWidget.value;
+        //thisProduct.priceElem.innerHTML = price;
   }
   
   class AmountWidget {
@@ -239,8 +243,8 @@
       const newValue = parseInt(value);
 
       //Add validation//
-      if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
-        thisWidget.value = newValue;
+      if(settings.amountWidget.defaultValue !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
+        settings.amountWidget.defaultValue = newValue;
       } 
       /*else if (newValue < settings.amountWidget.defaultMin) {
         thisWidget.value = settings.amountWidget.defaultMin;
@@ -250,14 +254,14 @@
         thisWidget.value = newValue;
       }*/
       
-      thisWidget.input.value = thisWidget.value;
+      thisWidget.input.value = settings.amountWidget.defaultValue;
       
          
       thisWidget.input.addEventListener('change', function(){
         thisWidget.setValue(thisWidget.input.value);
       });
-      thisWidget.announce(thisWidget.value);
-      console.log('thisWidget.value:' , thisWidget.value);
+      thisWidget.announce(settings.amountWidget.defaultValue);
+      //console.log('thisWidget.value:' , thisWidget.value);
       
     }
 
@@ -269,11 +273,11 @@
       
       thisWidget.linkDecrease.addEventListener('click' , function(event) {
         event.preventDefault();
-        thisWidget.setValue(thisWidget.value - 1);
+        thisWidget.setValue(settings.amountWidget.defaultValue - 1);
       });
       thisWidget.linkIncrease.addEventListener('click' , function(event) {
         event.preventDefault();
-        thisWidget.setValue(thisWidget.value + 1);
+        thisWidget.setValue(settings.amountWidget.defaultValue + 1);
       });
     }
     announce(){
@@ -284,11 +288,31 @@
     }
     
   }
-  
-  
+  class Cart{
+    consructor(element){
+      const thisCart = this;
+      thisCart.products = [];
+      thisCart.getElements(element);
+      thisCart.initAction();
+      console.log('new Cart:' , thisCart);
+    }
 
+    getElements(element){
+      const thisCart = this;
+      thisCart.dom = {};
+      thisCart.dom.wrapper = element;
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+    }
+    initAction(){
+      const thisCart = this;
+      thisCart.dom.toggleTrigger.addEventListener('click' , function() {
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+    }
+  }
+  
   const app = {
-    initMenu: function (){
+    initMenu: function(){
       const thisApp = this;
       //console.log('thisApp.data', thisApp.data);
 
@@ -296,10 +320,15 @@
         new Product(productData, thisApp.data.products[productData]);
       }
     },
-    initData: function (){
+    initData: function(){
       const thisApp = this;
 
       thisApp.data = dataSource;
+    },
+    initCart: function(){
+      const thisApp = this;
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart(cartElem);
     },
     init: function(){
       const thisApp = this;
@@ -311,6 +340,8 @@
       
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
+      
     },
   };
   
