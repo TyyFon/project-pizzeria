@@ -33,7 +33,7 @@ class Cart{
     thisCart.dom.productList.addEventListener('updated' , function(){
       thisCart.update();
     });
-    thisCart.dom.productList.addEventListener('remove' , function(){
+    thisCart.dom.productList.addEventListener('remove' , function(event){
       thisCart.remove(event.detail.cartProduct);
     });
     thisCart.dom.form.addEventListener('submit' , function(event){
@@ -57,7 +57,8 @@ class Cart{
     thisCart.subtotalPrice = 0;
 
     for(const product of thisCart.products){
-      thisCart.totalNumber = thisCart.totalNumber + product.amount;
+      thisCart.totalNumber = thisCart.totalNumber + parseInt(product.amount);
+      console.log('thisCart.totalNumber:' , thisCart.totalNumber , 'product.amount:' , typeof product.amount);
       //.log('product.amount:' , product.amount , '; thisCart.totalNumber:' , thisCart.totalNumber);
       thisCart.subtotalPrice = thisCart.subtotalPrice + product.price;
     }
