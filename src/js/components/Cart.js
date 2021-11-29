@@ -58,7 +58,7 @@ class Cart{
 
     for(const product of thisCart.products){
       thisCart.totalNumber = thisCart.totalNumber + parseInt(product.amount);
-      console.log('thisCart.totalNumber:' , thisCart.totalNumber , 'product.amount:' , typeof product.amount);
+      //console.log('thisCart.totalNumber:' , thisCart.totalNumber , 'product.amount:' , typeof product.amount);
       //.log('product.amount:' , product.amount , '; thisCart.totalNumber:' , thisCart.totalNumber);
       thisCart.subtotalPrice = thisCart.subtotalPrice + product.price;
     }

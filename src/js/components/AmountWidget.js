@@ -18,6 +18,7 @@ class AmountWidget {
     thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
     thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
     thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    console.log('thisWidget.linkIncrease' , thisWidget.linkIncrease);
   }
 
   setValue(value){
@@ -29,12 +30,12 @@ class AmountWidget {
       //settings.amountWidget.defaultValue = newValue;
       thisWidget.value = newValue;
         
-      console.log('thisWidget.value' , thisWidget.value);
+      //console.log('thisWidget.value' , thisWidget.value);
       //console.log('newValue' , newValue);
     } 
     thisWidget.input.value = thisWidget.value;
       
-    console.log('thisWidget.input.value' , thisWidget.input.value);
+    //console.log('thisWidget.input.value' , thisWidget.input.value);
     //console.log(thisWidget);
     /*else if (newValue < settings.amountWidget.defaultMin) {
         thisWidget.value = settings.amountWidget.defaultMin;
@@ -57,7 +58,7 @@ class AmountWidget {
 
     thisWidget.input.addEventListener('change', function() {
       thisWidget.setValue(thisWidget.input.value);
-      console.log('test');
+      //console.log('test');
     });      
       
     thisWidget.linkDecrease.addEventListener('click' , function(event) {
