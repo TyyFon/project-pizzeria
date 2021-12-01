@@ -207,7 +207,7 @@
    "events": [
    {
      "id": 1,
-     "date": "2021-01-01",
+     "date": "2021-12-09",
      "hour": "12:30",
      "table": 1,
      "repeat": false,
@@ -256,5 +256,15 @@
      "starters": ["lemonWater"]
    }
  ],
- "bookings": []
+ "bookings": [
+   {
+      "id": 1,
+      "date": "2021-12-10",
+      "hour": "18:00",
+      "table": 2,
+      "duration": 2,
+      "ppl": 4,
+      "starters": ["lemonWater"]
+    }
+ ]
 }

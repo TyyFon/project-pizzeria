@@ -18,7 +18,7 @@ class AmountWidget extends BaseWidget{
     thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
     thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
     //console.log('thisWidget.dom.linkIncrease' , thisWidget.dom.linkIncrease);
-    console.log('thisWidget.value:' , thisWidget.value);
+    //console.log('thisWidget.value:' , thisWidget.value);
   }
 
   /*setValue(value){
