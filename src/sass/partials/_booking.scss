@@ -174,6 +174,24 @@
   
     }
   }
+  &.selected {cursor: not-allowed;
+    color: lighten($color-dark, 40%);
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: #48882f;;
+      border: 3px solid $color-dark;
+      opacity: 0.4;
+    }
+
+  }
+
+  }
   
   [data-table="1"] {
     left: 40px;
