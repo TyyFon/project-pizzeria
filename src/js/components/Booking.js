@@ -218,7 +218,48 @@ class Booking {
     }
     thisBooking.selectedTable = [];
   }  
+  sendBooking(){
+    const thisBooking = this;
+    const url = settings.db.url + '/' + settings.db.bookings;
+
+    if(thisBooking.tableSelected != null){
+      if(thisBooking.tableSelected.length == 0) {
+        thisBooking.tableSelected = null;
+      }
+    }
+    let payload = {};
+    payload.date = thisBooking.datePicker.value;
+    payload.hour = thisBooking.hourPicker.value;
+    payload.table = thisBooking.tableSelected;
+    payload.duration = thisBooking.hoursAmount.value;
+    payload.peopleAmount = thisBooking.peopleAmount.value;
+    payload.phone = thisBooking.dom.phone.value;
+    payload.address = thisBooking.dom.address.value;
+    payload.starters = [];
+    for (let starter of thisBooking.dom.starters){
+      if(starter.checked){
+        payload.starters.push(starter.value);
+      }
+    }
+    thisBooking.send(url,payload);
+
+    thisBooking.makeBooked(payload.date, payload.hour,payload.duration,payload.table);
+
+
+  }
+  send(url,payload){
+    const options = {
+      method: 'POST',
+      headers:{
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(payload),
+    };
+    fetch(url,options);
+    console.log(url,options);
+  }
 }
+
 
 
 export default Booking;
