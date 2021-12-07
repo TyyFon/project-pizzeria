@@ -43,7 +43,7 @@ class Booking {
       eventsCurrent:   settings.db.url + '/' + settings.db.event   + '?' + params.eventsCurrent.join('&'),
       eventsRepeats:   settings.db.url + '/' + settings.db.event   + '?' + params.eventsRepeats.join('&'),
     };
-    console.log(urls);
+    //console.log(urls);
     
     Promise.all([
       fetch(urls.booking),
@@ -61,9 +61,9 @@ class Booking {
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeats]){
-        console.log(bookings);
-        console.log(eventsCurrent);
-        console.log(eventsRepeats);
+        //console.log(bookings);
+        //console.log(eventsCurrent);
+        //console.log(eventsRepeats);
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeats);
       });
   }
@@ -112,13 +112,13 @@ class Booking {
       
       thisBooking.booked[date][hourBlock].push(table);
     }
-    console.log('thisBooking.booked' , thisBooking.booked);
+    //console.log('thisBooking.booked' , thisBooking.booked);
   }
 
   updateDOM(){
     const thisBooking = this;
     thisBooking.date = thisBooking.datePicker.value;
-    console.log(thisBooking.hourPicker , thisBooking.hourPicker.value);
+    //console.log(thisBooking.hourPicker , thisBooking.hourPicker.value);
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
     
@@ -203,10 +203,12 @@ class Booking {
     if (clickedTable && !bookedTable) {
       thisBooking.removeTableSelection();
       if(!selectedTable){
-        event.target.classList.toggle(classNames.booking.tableSelected);
+        event.target.classList.toggle(classNames.booking.tableSlected);
         thisBooking.tableSelected = parseInt(
           element.getAttribute('data-table')
+          
         );
+        console.log(element.getAttribute('data-table'));
       }
     }
   }
@@ -220,7 +222,7 @@ class Booking {
   }  
   sendBooking(){
     const thisBooking = this;
-    const url = settings.db.url + '/' + settings.db.bookings;
+    const url = settings.db.url + '/' + settings.db.booking;
 
     if(thisBooking.tableSelected != null){
       if(thisBooking.tableSelected.length == 0) {
@@ -241,13 +243,13 @@ class Booking {
         payload.starters.push(starter.value);
       }
     }
-    thisBooking.send(url,payload);
+    thisBooking.send(url, payload);
 
-    thisBooking.makeBooked(payload.date, payload.hour,payload.duration,payload.table);
+    thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
 
 
   }
-  send(url,payload){
+  send(url, payload){
     const options = {
       method: 'POST',
       headers:{
