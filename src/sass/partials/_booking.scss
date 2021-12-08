@@ -174,11 +174,12 @@
   
     }
   }
-  &.selected {
-    background: #48882f;;
-    border: 3px solid $color-dark;
-    opacity: 0.4;
-    /*color: lighten($color-dark, 40%);
+    
+  .selected {
+    //background: #48882f;
+    ///border: 3px solid $color-dark;
+    //opacity: 0.4;
+    //color: lighten($color-dark, 40%);
     &::after {
       position: absolute;
       content: '';
@@ -189,7 +190,7 @@
       background: #48882f;;
       border: 3px solid $color-dark;
       opacity: 0.4;
-    }*/
+    }
   }
   
   [data-table="1"] {
@@ -210,6 +211,7 @@
     top: 180px;
   }
 }
+
 .booking-options {
   @include flex(row, flex-start, space-between);
   margin: ($base-size * 4) auto;
