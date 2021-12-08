@@ -208,7 +208,6 @@ class Booking {
           element.getAttribute('data-table')
           
         );
-        console.log(element.getAttribute('data-table'));
       }
     }
   }
