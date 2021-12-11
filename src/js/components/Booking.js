@@ -210,12 +210,15 @@ class Booking {
     const selectedTable = element.classList.contains(classNames.booking.tableSelected);
 
     if (clickedTable && !bookedTable) {
+      //console.log('1');
       thisBooking.removeTableSelection();
+      //console.log('2');
       if(!selectedTable){
-        event.target.classList.toggle(classNames.booking.tableSlected);
+        //console.log('3');
+        event.target.classList.toggle(classNames.booking.tableSelected);
+        //console.log('4');
         thisBooking.tableSelected = parseInt(
           element.getAttribute('data-table')
-          
         );
       }
     }
@@ -224,7 +227,7 @@ class Booking {
     const thisBooking = this;
     for(const table of thisBooking.dom.tables){
       table.classList.remove(classNames.booking.tableSelected);
-
+      console.log(table.classList , classNames.booking.tableSelected);
     }
     thisBooking.selectedTable = [];
   }  

@@ -67,7 +67,7 @@ class CartProduct{
       price: thisCartProduct.price,
       params: thisCartProduct.params,
     };
-    console.log('thisCartProduct' , thisCartProduct);
+    //console.log('thisCartProduct' , thisCartProduct);
     return productOrder;
   }
 }
